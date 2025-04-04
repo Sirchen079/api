@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KID API - 全球领先的AI API集合分发平台</title>
+    <style>
+        :root {
+            --primary: #0066ff;
+            --secondary: #00ccff;
+            --dark: #111827;
+            --light: #f3f4f6;
+            --success: #10b981;
+            --accent: #7c3aed;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* 渐变背景与网格效果 */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(0,18,36,0.95) 0%, rgba(9,9,121,0.8) 50%, rgba(0,108,255,0.7) 100%);
+            z-index: -2;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+
+        /* 导航栏 */
+        header {
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* 特性区块 */
+        .features {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* 模型支持区域 */
+        .models {
+            padding: 6rem 0;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .model-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .model-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 团队区块 */
+        .team {
+            padding: 6rem 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .team-member {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* 全球覆盖区域 */
+        .global {
+            padding: 6rem 0;
+            background: rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* 动画效果 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-delay {
+            animation: float 6s ease-in-out 2s infinite;
+        }
+
+        /* 粒子效果 */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">KID API</div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>全球领先的<span>人工智能 API</span> 集合分发平台</h1>
+                <p class="hero-subtitle">
+                    通过一个接口，连接所有主流AI模型 - 高效、稳定、安全
+                </p>
+            </div>
+        </div>
+        <div class="particles">
+            <div class="particle" style="top:10%; left:20%; animation: float 8s infinite;"></div>
+            <div class="particle" style="top:15%; left:50%; animation: float 12s infinite;"></div>
+            <div class="particle" style="top:25%; left:70%; animation: float 9s infinite;"></div>
+            <div class="particle" style="top:60%; left:80%; animation: float 10s infinite;"></div>
+            <div class="particle" style="top:75%; left:25%; animation: float 11s infinite;"></div>
+            <div class="particle" style="top:80%; left:50%; animation: float 14s infinite;"></div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">核心优势</h2>
+            <div class="features-grid">
+                <div class="feature-card float">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">高并发处理</h3>
+                    <p>采用分布式架构，单实例支持10,000+并发请求，保证企业级应用的稳定运行</p>
+                </div>
+                <div class="feature-card float-delay">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">智能负载均衡</h3>
+                    <p>独创的AI调度算法，根据模型负载实时分配资源，确保最佳响应速度</p>
+                </div>
+                <div class="feature-card float">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">企业级安全</h3>
+                    <p>数据传输全程加密，支持自定义密钥管理，满足金融级安全要求</p>
+                </div>
+                <div class="feature-card float-delay">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">全球化部署</h3>
+                    <p>多区域服务器集群，智能路由技术，为全球用户提供低延迟的访问体验</p>
+                </div>
+                <div class="feature-card float">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">详细监控分析</h3>
+                    <p>实时监控API使用情况，提供深度分析报告，帮助优化资源配置</p>
+                </div>
+                <div class="feature-card float-delay">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">成本优化</h3>
+                    <p>智能化资源调度，有效降低AI模型调用成本，为企业节省50%以上开支</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="models">
+        <div class="container">
+            <h2 class="section-title">支持的AI模型</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">一个接口，连接所有主流大语言模型，满足不同场景需求</p>
+            <div class="models-grid">
+                <div class="model-card">
+                    <h3 class="model-name">ChatGPT</h3>
+                    <p>OpenAI全系列，包括GPT-3.5/GPT-4/GPT-4 Turbo</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">Claude</h3>
+                    <p>Anthropic Claude 2/3/3.5 Sonnet/Opus</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">Gemini</h3>
+                    <p>Google Gemini Pro/Ultra/Flash</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">DeepSeek</h3>
+                    <p>DeepSeek-Coder/Chat/7B/67B</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">Llama</h3>
+                    <p>Meta Llama 2/3/3.1 70B</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">ERNIE</h3>
+                    <p>百度文心一言企业级API接入</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">Mistral</h3>
+                    <p>Mistral 7B/8x7B/Large</p>
+                </div>
+                <div class="model-card">
+                    <h3 class="model-name">更多模型</h3>
+                    <p>持续扩展中的模型库，覆盖各类专业领域</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team">
+        <div class="container">
+            <h2 class="section-title">专家团队</h2>
+            <p style="text-align: center; margin-bottom: 3rem;">来自世界顶尖科技公司的AI专家，为您提供最前沿的技术支持</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">Dr. Michael Stevens</h3>
+                        <p class="member-role">首席技术官 | 前Google AI研究员</p>
+                        <p>拥有20年分布式系统经验，曾领导Google云平台核心架构设计，专注于高性能计算和AI系统优化</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">Dr. Sarah Johnson</h3>
+                        <p class="member-role">AI研究总监 | 前OpenAI高级研究员</p>
+                        <p>人工智能领域知名学者，发表50+顶级论文，专注于大语言模型优化和推理加速技术</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">Robert Chen</h3>
+                        <p class="member-role">系统架构师 | 前AWS首席工程师</p>
+                        <p>云计算和分布式系统专家，设计了支持百万级并发的关键基础设施，精通高可用性系统构建</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-info">
+                        <h3 class="member-name">Emma Wilson</h3>
+                        <p class="member-role">安全总监 | 前微软安全团队负责人</p>
+                        <p>网络安全和数据隐私专家，拥有多项安全专利，专注于AI系统中的数据保护和合规性</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="global">
+        <div class="container">
+            <h2 class="section-title">全球覆盖</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">
+                遍布全球的服务器集群，为各地用户提供低延迟、高可用的API服务
+            </p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">99.99%</div>
+                    <p>服务可用性</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <p>全球数据中心</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;100ms</div>
+                    <p>平均响应时间</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <p>专业技术支持</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="font-size: 2.5rem; margin-bottom: 1rem;">KID API</div>
+            <p>连接智能，开启无限可能</p>
+            <div class="copyright">
+                &copy; 2025 KID API. 保留所有权利
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 创建漂浮粒子效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // 随机位置和大小
+                const size = Math.random() * 8 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 10 + 5;
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.top = `${posY}%`;
+                particle.style.left = `${posX}%`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+
+                particlesContainer.appendChild(particle);
+            }
+        });
+
+        // 添加滚动动画效果
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.feature-card, .model-card, .team-member, .stat-card');
+
+            elements.forEach(elem => {
+                const position = elem.getBoundingClientRect();
+
+                // 元素进入视口
+                if(position.top < window.innerHeight && position.bottom >= 0) {
+                    elem.style.opacity = '1';
+                    elem.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
