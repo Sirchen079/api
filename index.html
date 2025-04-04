@@ -3,738 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KID API - 专业AI模型接口分发平台</title>
+    <title>MAX战队分析 | 艺术永不止息</title>
     <style>
         :root {
-            --primary-color: #3a86ff;
-            --secondary-color: #8338ec;
-            --accent-color: #ff006e;
-            --dark-bg: #0f1121;
-            --darker-bg: #080a16;
-            --light-text: #f8f9fa;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --glass-effect: rgba(255, 255, 255, 0.1);
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --text: #f1f1f1;
+            --text-secondary: #a7a7a7;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
-            background-color: var(--dark-bg);
-            color: var(--light-text);
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(58, 134, 255, 0.2) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(131, 56, 236, 0.2) 0%, transparent 20%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 2rem;
+            position: relative;
         }
         
-        /* 导航栏 */
         header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            background-color: rgba(15, 17, 33, 0.8);
-            border-bottom: 1px solid var(--glass-effect);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--light-text);
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo span {
-            color: var(--primary-color);
-            margin-right: 5px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-links a {
-            color: var(--light-text);
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-        
-        .btn {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(58, 134, 255, 0.3);
-        }
-        
-        /* 主要英雄区域 */
-        .hero {
-            padding-top: 120px;
-            padding-bottom: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-        
-        .hero-text {
-            flex: 1;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #3a86ff);
+            font-size: 5rem;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(45deg, #f06, #3cf);
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            color: #b8c1ec;
-        }
-        
-        .hero-image {
-            flex: 1;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
             position: relative;
-        }
-        
-        .hero-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* 功能特点部分 */
-        .features {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
             display: inline-block;
         }
         
-        .section-title::after {
-            content: '';
+        .logo::after {
+            content: "";
             position: absolute;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
-            left: 50%;
+            width: 60%;
+            height: 5px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 20%;
             transform: translateX(-50%);
-            bottom: -10px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
         
-        .feature-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--glass-effect);
-            border-radius: 15px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            height: 100%;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(58, 134, 255, 0.2);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--light-text);
-        }
-        
-        .feature-card p {
-            font-size: 1rem;
-            color: #b8c1ec;
-            line-height: 1.6;
-        }
-        
-        /* 支持的模型 */
-        .models {
-            padding: 80px 0;
-            background-color: var(--darker-bg);
-        }
-        
-        .model-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        
-        .model-logo {
-            background-color: var(--card-bg);
-            border: 1px solid var(--glass-effect);
-            border-radius: 15px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.3s ease;
-            width: 180px;
-            height: 180px;
-            justify-content: center;
-        }
-        
-        .model-logo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(58, 134, 255, 0.15);
-            border-color: var(--primary-color);
-        }
-        
-        .model-logo img {
-            height: 60px;
-            margin-bottom: 15px;
-        }
-        
-        .model-logo h3 {
+        .subtitle {
             font-size: 1.2rem;
-            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
         
-        /* 全球服务 */
-        .global-services {
-            padding: 80px 0;
-            position: relative;
-        }
-        
-        .world-map {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDUwMCI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM2E4NmZmIiBzdHJva2Utd2lkdGg9IjEiIGQ9Ik0yNTAsMTUwIEw3NTAsMzUwIE01MDAsMTAwIEw1MDAsNDAwIE0xNTAsMjUwIEw4NTAsMjUwIE0zMDAsMTUwIEw3MDAsMzUwIE00MDAsMTAwIEw2MDAsNDAwIE0yMDAsMjAwIEw4MDAsMzAwIE0zMDAsMTAwIEw3MDAsMTAwIE0zMDAsNDAwIEw3MDAsNDAwIj48L3BhdGg+PC9zdmc+');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin: 0 auto;
-        }
-        
-        .server-point {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px rgba(255, 0, 110, 0.8);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(255, 0, 110, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 0, 110, 0);
-            }
-        }
-        
-        /* 团队介绍 */
-        .team {
-            padding: 80px 0;
-            background-color: var(--darker-bg);
-        }
-        
-        .team-members {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .team-member {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(58, 134, 255, 0.2);
-        }
-        
-        .team-member img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 3px solid var(--accent-color);
-        }
-        
-        .team-member h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--light-text);
-        }
-        
-        .team-member p {
-            color: #b8c1ec;
-            margin-bottom: 15px;
-        }
-        
-        /* 统计数据 */
-        .stats {
-            padding: 80px 0;
-            background: linear-gradient(45deg, var(--darker-bg), var(--dark-bg));
-        }
-        
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-        
-        .stat-box {
-            padding: 30px;
-            text-align: center;
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(58, 134, 255, 0.15);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            color: #b8c1ec;
-        }
-        
-        /* 联系部分 */
-        .contact {
-            padding: 80px 0;
-            position: relative;
-        }
-        
-        .contact-container {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 50px;
-            border: 1px solid var(--glass-effect);
+        .content {
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeIn 1s ease-out forwards;
         }
         
-        .contact-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .form-full {
-            grid-column: 1 / -1;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea {
+        .content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-effect);
-            border-radius: 8px;
-            color: var(--light-text);
-            font-size: 1rem;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(233, 69, 96, 0.1), rgba(0, 0, 0, 0));
+            z-index: -1;
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
         }
         
-        /* 页脚 */
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .quote {
+            font-style: italic;
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+        }
+        
         footer {
-            background-color: var(--darker-bg);
-            padding: 40px 0;
-            border-top: 1px solid var(--glass-effect);
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .footer-links a {
-            color: #b8c1ec;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-        
-        .copyright {
-            color: #b8c1ec;
+            text-align: center;
+            margin-top: 3rem;
             font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 1rem;
         }
         
-        /* 响应式设计 */
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(233, 69, 96, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(233, 69, 96, 0.8);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column;
+            .logo {
+                font-size: 3rem;
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .contact-form {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .stats-container {
-                grid-template-columns: 1fr;
+            .content {
+                padding: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <span>KID</span> API
-                </div>
-                <div class="nav-links">
-                    <a href="#home">首页</a>
-                    <a href="#features">特点</a>
-                    <a href="#models">支持模型</a>
-                    <a href="#global">全球服务</a>
-                    <a href="#team">团队</a>
-                </div>
-                <a href="#contact" class="btn">立即注册</a>
-            </nav>
+    <div class="container">
+        <header>
+            <div class="logo">MAX</div>
+            <div class="subtitle">Mistake Art Xperiment</div>
+        </header>
+        
+        <div class="content">
+            <p>
+                <span class="highlight">艺术</span>，是这个战队最大的符号。在d5比赛史上，没有任何一个战队能像max一样，在每次赛事中都能打不进线下决赛，但同时max也与冠亚季军屡屡失之交臂，怎能不叫人痛心！！！
+            </p>
+            
+            <p>
+                次次打不进决赛无疑证明着他们的实力，但次次的落败也能说明一些问题。或许有时运不济的因素在，但毫无疑问max与冠军队伍存在一定的实力差距。
+            </p>
+            
+            <p>
+                归根结底就在于他们<span class="highlight">人类、盲女、冒险家、医生、幸运儿</span>体系虽然稳健，但缺少逆转局势的可能。<span class="highlight">屠夫、A神、杰克</span>虽然超模强势，但不能很好的左上右下决定比分。
+            </p>
+            
+            <div class="quote">
+                我相信max就如它的全称"<span class="highlight">M</span>istake <span class="highlight">A</span>rt <span class="highlight">X</span>periment"（错误艺术实验室）一样，生命不息，艺术不止！！！
+            </div>
+            
+            <p class="highlight" style="text-align: center; font-size: 1.5rem; font-weight: bold;">
+                max，永远滴神！！！
+            </p>
         </div>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>加速您的 AI 应用<br>高性能 API 分发平台</h1>
-                <p>KID API为您提供一站式人工智能API服务，支持ChatGPT、Gemini、Claude、Deepseek等主流AI模型，高并发、低延迟，为您的创新保驾护航。</p>
-                <a href="#contact" class="btn">开始使用</a>
-            </div>
-            <div class="hero-image">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MDAgMzAwIiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzBmMTEyMSIvPjxwYXRoIGQ9Ik0xMDAsMTUwIEwxNTAsMTAwIEwyMDAsMTUwIEwyNTAsMTIwIEwzMDAsMTgwIEwzNTAsMTAwIEw0MDAsMTUwIEw0NTAsMTIwIiBzdHJva2U9IiMzYTg2ZmYiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEwMCIgcj0iNSIgZmlsbD0iI2ZmMDA2ZSIvPjxjaXJjbGUgY3g9IjM1MCIgY3k9IjEwMCIgcj0iNSIgZmlsbD0iIzNhODZmZiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iNSIgZmlsbD0iIzgzMzhlYyIvPjxjaXJjbGUgY3g9IjQ1MCIgY3k9IjEyMCIgcj0iNSIgZmlsbD0iI2ZmMDA2ZSIvPjxyZWN0IHg9IjE1MCIgeT0iMTUwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBzdHJva2U9IiMzYTg2ZmYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0icmdiYSg1OCwgMTM0LCAyNTUsIDAuMSkiLz48dGV4dCB4PSIyNTAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC1zaXplPSIyMCI+S0lEIEFQSTwvdGV4dD48L3N2Zz4=" alt="KID API 智能分发平台">
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>为什么选择 KID API</h2>
-            </div>
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>高速稳定</h3>
-                    <p>采用分布式架构，支持每秒万级请求，99.9%的可靠性保证，全天候运行无忧。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>多模型支持</h3>
-                    <p>一个接口，连接所有主流AI模型，包括ChatGPT、Gemini、Claude、Deepseek等，轻松切换无需改变代码。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
-                    <h3>全球加速</h3>
-                    <p>全球多节点部署，智能路由技术，无论身在何处，都能享受低延迟的极速体验。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💼</div>
-                    <h3>企业级支持</h3>
-                    <p>提供专属技术支持，定制化解决方案，满足不同规模企业的多样化需求。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>安全保障</h3>
-                    <p>端到端加密，数据安全无忧，符合国际数据安全标准，保护您的业务隐私。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>成本优化</h3>
-                    <p>按量计费，无需高额预付，帮助您降低70%的AI使用成本，提高资源利用率。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="models" class="models">
-        <div class="container">
-            <div class="section-title">
-                <h2>支持的AI模型</h2>
-            </div>
-            <div class="model-logos">
-                <div class="model-logo">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzEwYTM3ZiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9IjAuM2VtIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9J0FyaWFsJyBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNCI+R1BUPC90ZXh0Pjwvc3ZnPg==" alt="ChatGPT">
-                    <h3>ChatGPT</h3>
-                </div>
-                <div class="model-logo">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIHg9IjEwIiB5PSIxMCIgcng9IjEwIiBmaWxsPSIjNDI4NWY0Ii8+PHRleHQgeD0iNTAiIHk9IjUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zZW0iIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0nQXJpYWwnIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0Ij5HZW1pbmk8L3RleHQ+PC9zdmc+" alt="Gemini">
-                    <h3>Gemini</h3>
-                </div>
-                <div class="model-logo">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cG9seWdvbiBwb2ludHM9IjUwLDEwIDkwLDUwIDUwLDkwIDEwLDUwIiBmaWxsPSIjOTAyN2I1Ii8+PHRleHQgeD0iNTAiIHk9IjUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zZW0iIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0nQXJpYWwnIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0Ij5DbGF1ZGU8L3RleHQ+PC9zdmc+" alt="Claude">
-                    <h3>Claude</h3>
-                </div>
-                <div class="model-logo">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZWxsaXBzZSBjeD0iNTAiIGN5PSI1MCIgcng9IjQwIiByeT0iMzAiIGZpbGw9IiMwMDdjZmYiLz48dGV4dCB4PSI1MCIgeT0iNTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTIiPkRlZXBzZWVrPC90ZXh0Pjwvc3ZnPg==" alt="Deepseek">
-                    <h3>Deepseek</h3>
-                </div>
-                <div class="model-logo">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNMjAsMzAgTDUwLDEwIEw4MCwzMCBMODAsNzAgTDUwLDkwIEwyMCw3MCBaIiBmaWxsPSIjZmY2NjAwIi8+PHRleHQgeD0iNTAiIHk9IjUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zZW0iIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0nQXJpYWwnIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0Ij5MbGFtYTwvdGV4dD48L3N2Zz4=" alt="Llama">
-                    <h3>Llama</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="global" class="global-services">
-        <div class="container">
-            <div class="section-title">
-                <h2>全球服务覆盖</h2>
-            </div>
-            <div class="world-map">
-                <!-- 模拟全球服务器节点 -->
-                <div class="server-point" style="top:40%; left:25%"></div>
-                <div class="server-point" style="top:30%; left:50%"></div>
-                <div class="server-point" style="top:35%; left:75%"></div>
-                <div class="server-point" style="top:60%; left:35%"></div>
-                <div class="server-point" style="top:65%; left:80%"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats">
-        <div class="container">
-            <div class="stats-container">
-                <div class="stat-box">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">服务可用性</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">10K+</div>
-                    <div class="stat-label">每秒处理请求数</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">支持的模型</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">5000+</div>
-                    <div class="stat-label">企业客户</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="team" class="team">
-        <div class="container">
-            <div class="section-title">
-                <h2>精英技术团队</h2>
-            </div>
-            <div class="team-members">
-                <div class="team-member">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2RkZCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjYWFhIi8+PHBhdGggZD0iTTI1LDg1IFE1MCwxMTAgNzUsODUiIGZpbGw9IiNhYWEiLz48L3N2Zz4=" alt="张伟">
-                    <h3>张伟</h3>
-                    <p>创始人 & CEO</p>
-                    <p>前Google AI负责人，10年AI研发经验</p>
-                </div>
-                <div class="team-member">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2RkZCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjYWFhIi8+PHBhdGggZD0iTTI1LDg1IFE1MCwxMTAgNzUsODUiIGZpbGw9IiNhYWEiLz48L3N2Zz4=" alt="李娜">
-                    <h3>李娜</h3>
-                    <p>CTO</p>
-                    <p>分布式系统专家，前阿里P9技术专家</p>
-                </div>
-                <div class="team-member">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2RkZCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjYWFhIi8+PHBhdGggZD0iTTI1LDg1IFE1MCwxMTAgNzUsODUiIGZpbGw9IiNhYWEiLz48L3N2Zz4=" alt="王强">
-                    <h3>王强</h3>
-                    <p>首席研究员</p>
-                    <p>MIT博士，自然语言处理领域专家</p>
-                </div>
-                <div class="team-member">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2RkZCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjYWFhIi8+PHBhdGggZD0iTTI1LDg1IFE1MCwxMTAgNzUsODUiIGZpbGw9IiNhYWEiLz48L3N2Zz4=" alt="陈明">
-                    <h3>陈明</h3>
-                    <p>运维总监</p>
-                    <p>超大规模云服务专家，前腾讯T4工程师</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>立即开始</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-form">
-                    <div class="form-group">
-                        <label for="name">姓名</label>
-                        <input type="text" id="name" placeholder="您的姓名">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">邮箱</label>
-                        <input type="email" id="email" placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="company">公司</label>
-                        <input type="text" id="company" placeholder="公司名称">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">电话</label>
-                        <input type="tel" id="phone" placeholder="联系电话">
-                    </div>
-                    <div class="form-group form-full">
-                        <label for="message">需求描述</label>
-                        <textarea id="message" rows="5" placeholder="请描述您的需求..."></textarea>
-                    </div>
-                    <div class="form-group form-full">
-                        <button class="btn">提交申请</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo">
-                    <span>KID</span> API
-                </div>
-                <div class="footer-links">
-                    <a href="#home">首页</a>
-                    <a href="#features">特点</a>
-                    <a href="#models">模型</a>
-                    <a href="#global">全球服务</a>
-                    <a href="#team">团队</a>
-                    <a href="#contact">联系我们</a>
-                </div>
-                <div class="copyright">
-                    © 2023 KID API. 保留所有权利
-                </div>
-            </div>
-        </div>
-    </footer>
+        
+        <footer>
+            &copy; 2023 MAX战队分析 | 艺术永不止息
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const content = document.querySelector('.content');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            observer.observe(content);
+        });
+    </script>
 </body>
 </html>
